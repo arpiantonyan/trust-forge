@@ -1,0 +1,32 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="https://lumi.new/lumi.ing/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrustForge AI - Where AI Reliability is Forged | Premium LLM Validation</title>
+    <meta name="description" content="Eliminate costly AI failures with TrustForge AI's rigorous validation service. Trusted by CTOs and engineering leaders at B2B SaaS companies.">
+  </head>
+  <body>
+    <form name="trustforge-demo-request" netlify hidden>
+      <input type="hidden" name="form-name" value="trustforge-demo-request" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="company" />
+      <input type="text" name="title" />
+      <textarea name="message"></textarea>
+    </form>
+    <!-- Backward-compat: support old form name so Netlify maps fields -->
+    <form name="TrustForge Demo Request" netlify hidden>
+      <input type="hidden" name="form-name" value="TrustForge Demo Request" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="company" />
+      <input type="text" name="title" />
+      <textarea name="message"></textarea>
+    </form>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
