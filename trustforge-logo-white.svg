@@ -1,0 +1,47 @@
+<svg width="80" height="80" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Trust-Forge Gradient (White variant) -->
+    <linearGradient id="trustForgeGradientWhite" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA" />
+      <stop offset="50%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#F97316" />
+    </linearGradient>
+    
+    <!-- Forge Glow -->
+    <radialGradient id="forgeGlowWhite" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F97316" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#F97316" stop-opacity="0" />
+    </radialGradient>
+    
+    <!-- Trust Ripple -->
+    <radialGradient id="trustRippleWhite" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background Glow Effects -->
+  <circle cx="20" cy="20" r="18" fill="url(#trustRippleWhite)" />
+  <circle cx="20" cy="20" r="15" fill="url(#forgeGlowWhite)" />
+  
+  <!-- Main Shield/Diamond Shape -->
+  <path 
+    d="M20 4 L32 12 L32 28 L20 36 L8 28 L8 12 Z" 
+    fill="url(#trustForgeGradientWhite)"
+  />
+  
+  <!-- Inner Forge Diamond -->
+  <path 
+    d="M20 8 L28 14 L28 26 L20 32 L12 26 L12 14 Z" 
+    fill="rgba(255,255,255,0.2)"
+    stroke="rgba(255,255,255,0.4)"
+    stroke-width="1"
+  />
+  
+  <!-- Trust Validation Lines -->
+  <g stroke="rgba(255,255,255,0.6)" stroke-width="1.5" fill="none">
+    <line x1="15" y1="16" x2="25" y2="16" />
+    <line x1="15" y1="20" x2="25" y2="20" />
+    <line x1="15" y1="24" x2="25" y2="24" />
+  </g>
+</svg>

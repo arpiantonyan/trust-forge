@@ -655,30 +655,30 @@ function App() {
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-2xl p-8 border border-slate-200"
-          >
-            <blockquote className="text-center">
-              <p className="text-2xl text-slate-700 mb-6 italic">
-                "TrustForge AI transformed our approach to AI validation. We
-                went from constant production fires to predictable, reliable AI
-                performance. The ROI was evident within the first quarter."
-              </p>
-              <div className="flex items-center justify-center space-x-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-slate-400 to-slate-600 rounded-full"></div>
-                <div className="text-left">
-                  <div className="font-semibold text-slate-900">Sarah Chen</div>
-                  <div className="text-slate-600">
-                    VP of Engineering, TechFlow Solutions
+            {/* <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-2xl p-8 border border-slate-200"
+            >
+              <blockquote className="text-center">
+                <p className="text-2xl text-slate-700 mb-6 italic">
+                  "TrustForge AI transformed our approach to AI validation. We
+                  went from constant production fires to predictable, reliable AI
+                  performance. The ROI was evident within the first quarter."
+                </p>
+                <div className="flex items-center justify-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-slate-400 to-slate-600 rounded-full"></div>
+                  <div className="text-left">
+                    <div className="font-semibold text-slate-900">Sarah Chen</div>
+                    <div className="text-slate-600">
+                      VP of Engineering, TechFlow Solutions
+                    </div>
                   </div>
                 </div>
-              </div>
-            </blockquote>
-          </motion.div>
+              </blockquote>
+            </motion.div> */}
         </div>
       </section>
 
