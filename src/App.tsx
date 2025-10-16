@@ -1,4 +1,4 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Shield,
@@ -20,28 +20,7 @@ import {
 import Logo from "./components/Logo";
 
 function App() {
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   email: "",
-  //   company: "",
-  //   title: "",
-  //   message: "",
-  // });
-
-  // const handleInputChange = (
-  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  // ) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   // Handle form submission
-  //   console.log("Form submitted:", formData);
-  // };
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -655,7 +634,7 @@ function App() {
             ))}
           </div>
 
-            {/* <motion.div
+          {/* <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -748,17 +727,40 @@ function App() {
               viewport={{ once: true }}
               className="bg-white rounded-2xl p-8"
             >
-              <form 
+              <form
                 name={"trustforge-demo-request"}
                 method="POST"
                 data-netlify="true"
+                data-netlify-honeypot="bot-field"
                 className="space-y-6"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.currentTarget as HTMLFormElement;
+                  const formData = new FormData(form);
+
+                  try {
+                    await fetch("/", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                      body: new URLSearchParams(formData as any).toString(),
+                    });
+                    setIsSubmitted(true);
+                    form.reset();
+                  } catch (error) {
+                    alert("Submission failed. Please try again.");
+                  }
+                }}
               >
                 <input
                   type="hidden"
                   name="form-name"
                   value="trustforge-demo-request"
                 />
+                <p className="hidden" aria-hidden="true">
+                  <label>
+                    Don't fill this out if you're human: <input name="bot-field" />
+                  </label>
+                </p>
                 <div>
                   <h3 className="text-2xl font-bold text-slate-900 mb-6">
                     Book Your Demo
@@ -832,11 +834,14 @@ function App() {
                 </div>
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+                  whileHover={{ scale: isSubmitted ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitted ? 1 : 0.98 }}
+                  className={`w-full px-8 py-4 rounded-lg font-semibold text-lg transition-colors ${isSubmitted
+                    ? "bg-green-500 text-white cursor-default"
+                    : "bg-orange-500 hover:bg-orange-600 text-white"
+                    }`}
                 >
-                  Schedule Demo
+                  {isSubmitted ? "✓ Demo Requested!" : "Schedule Demo"}
                 </motion.button>
                 <p className="text-sm text-slate-500 text-center">
                   By submitting this form, you agree to our privacy policy.
@@ -908,6 +913,8 @@ function App() {
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-slate-400">
                 © 2025 TrustForge AI. All rights reserved.
+              </p>
+              <p className="text-slate-400">Powered by <a style={{ color: 'white' }} target="_blank" rel="noopener noreferrer" href="https://tesvan.com" className="text-slate-400 hover:text-white transition-colors">Tesvan</a>
               </p>
               {/* <div className="flex space-x-6 mt-4 md:mt-0">
                 <a href="#" className="text-slate-400 hover:text-white transition-colors">Privacy Policy</a>
