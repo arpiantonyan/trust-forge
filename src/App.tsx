@@ -101,13 +101,13 @@ function App() {
                   Book a Demo
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </motion.a>
-                <motion.button
+                {/* <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="border-2 border-white/20 hover:border-white/40 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all"
                 >
                   View Case Studies
-                </motion.button>
+                </motion.button> */}
               </div>
 
               <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10">
