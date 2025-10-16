@@ -575,7 +575,7 @@ function App() {
       </section>
 
       {/* Trust Signals */}
-      <section className="py-20 bg-slate-50">
+      {/* <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -633,7 +633,7 @@ function App() {
               </motion.div>
             ))}
           </div>
-
+ */}
           {/* <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -658,8 +658,8 @@ function App() {
                 </div>
               </blockquote>
             </motion.div> */}
-        </div>
-      </section>
+        {/* </div>
+      </section> */}
 
       {/* Demo Form */}
       <section
