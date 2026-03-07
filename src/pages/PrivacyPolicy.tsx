@@ -276,20 +276,6 @@ export default function PrivacyPolicy() {
             </section>
           </div>
         </motion.article>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="mt-8 text-center"
-        >
-          <Link
-            to="/"
-            className="inline-flex items-center text-blue-800 hover:text-blue-900 font-medium transition-colors"
-          >
-            ← Back to home
-          </Link>
-        </motion.div>
       </main>
 
       {/* Footer */}
