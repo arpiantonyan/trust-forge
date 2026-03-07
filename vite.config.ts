@@ -27,6 +27,17 @@ export default defineConfig(({ mode }) => {
       'process.env.NODE_ENV': '"development"',
       '__DEV__': 'true',
     }
+  } else {
+    build = {
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.includes('node_modules/framer-motion')) return 'framer-motion'
+            if (id.includes('node_modules/react-router')) return 'react-router'
+          },
+        },
+      },
+    }
   }
 
   return {

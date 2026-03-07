@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
+import { Link, BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Shield,
@@ -7,7 +8,6 @@ import {
   Monitor,
   ArrowRight,
   CheckCircle,
-  Users,
   Award,
   BarChart3,
   Clock,
@@ -19,8 +19,43 @@ import {
 } from "lucide-react";
 import Logo from "./components/Logo";
 
-function App() {
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+
+const VALUE_PROP_ITEMS = [
+  { icon: Shield, title: "Reduce AI Failures", metric: "Up to 89%", description: "Eliminate production failures through comprehensive validation testing", color: "text-blue-600" },
+  { icon: Target, title: "Increase Accuracy", metric: "Average +41.9%", description: "Scientifically proven accuracy improvements across model implementations", color: "text-indigo-600" },
+  { icon: DollarSign, title: "Cut Operational Costs", metric: "Save $2.4M+", description: "Reduce infrastructure costs and prevent expensive production incidents", color: "text-orange-600" },
+  { icon: Monitor, title: "Real-time Monitoring", metric: "24/7 Coverage", description: "Continuous performance tracking with instant alerting and diagnostics", color: "text-green-600" },
+] as const;
+
+const PROCESS_STEPS = [
+  { phase: "01", title: "Ground Truth Collection", description: "Establish comprehensive baseline datasets with domain expert validation", details: ["Expert-curated datasets", "Multi-source validation", "Quality assurance protocols"] },
+  { phase: "02", title: "Baseline Testing", description: "Comprehensive performance analysis across all critical metrics and edge cases", details: ["Performance benchmarking", "Edge case identification", "Failure mode analysis"] },
+  { phase: "03", title: "Metrics Development", description: "Custom KPIs aligned with business objectives and technical requirements", details: ["Business-aligned KPIs", "Technical metrics", "ROI measurement framework"] },
+  { phase: "04", title: "Enhancement", description: "Systematic optimization using data-driven insights and proven methodologies", details: ["Model optimization", "Architecture improvements", "Performance tuning"] },
+  { phase: "05", title: "Continuous Monitoring", description: "Real-time tracking with automated alerting and performance drift detection", details: ["24/7 monitoring", "Automated alerts", "Drift detection"] },
+] as const;
+
+const CASE_STUDY_CHALLENGE_ITEMS = ["67.3% accuracy in lead scoring", "2.4s average response time", "$2.3M annual revenue impact", "Customer churn increasing 23%"];
+const CASE_STUDY_SOLUTION_ITEMS = ["95.5% validated lead scoring accuracy", "540ms consistent response time", "$1.2M annual cost savings", "99.7% uptime with monitoring"];
+
+function LandingPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash || window.location.hash;
+    if (hash) {
+      const id = hash.replace(/^#/, "");
+      const timer = setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      return () => clearTimeout(timer);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname, location.hash]);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -28,26 +63,28 @@ function App() {
       <nav className="bg-white shadow-sm border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Logo />
+            <Link to="/">
+              <Logo />
+            </Link>
             <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="#process"
+              <Link
+                to="/#process"
                 className="text-slate-600 hover:text-blue-800 transition-colors"
               >
                 Process
-              </a>
-              <a
-                href="#results"
+              </Link>
+              <Link
+                to="/#results"
                 className="text-slate-600 hover:text-blue-800 transition-colors"
               >
                 Results
-              </a>
-              <a
-                href="#demo"
+              </Link>
+              <Link
+                to="/#demo"
                 className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
               >
                 Book Demo
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -237,40 +274,7 @@ function App() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Shield,
-                title: "Reduce AI Failures",
-                metric: "Up to 89%",
-                description:
-                  "Eliminate production failures through comprehensive validation testing",
-                color: "text-blue-600",
-              },
-              {
-                icon: Target,
-                title: "Increase Accuracy",
-                metric: "Average +41.9%",
-                description:
-                  "Scientifically proven accuracy improvements across model implementations",
-                color: "text-indigo-600",
-              },
-              {
-                icon: DollarSign,
-                title: "Cut Operational Costs",
-                metric: "Save $2.4M+",
-                description:
-                  "Reduce infrastructure costs and prevent expensive production incidents",
-                color: "text-orange-600",
-              },
-              {
-                icon: Monitor,
-                title: "Real-time Monitoring",
-                metric: "24/7 Coverage",
-                description:
-                  "Continuous performance tracking with instant alerting and diagnostics",
-                color: "text-green-600",
-              },
-            ].map((item, index) => (
+            {VALUE_PROP_ITEMS.map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -320,63 +324,7 @@ function App() {
           </motion.div>
 
           <div className="space-y-8">
-            {[
-              {
-                phase: "01",
-                title: "Ground Truth Collection",
-                description:
-                  "Establish comprehensive baseline datasets with domain expert validation",
-                details: [
-                  "Expert-curated datasets",
-                  "Multi-source validation",
-                  "Quality assurance protocols",
-                ],
-              },
-              {
-                phase: "02",
-                title: "Baseline Testing",
-                description:
-                  "Comprehensive performance analysis across all critical metrics and edge cases",
-                details: [
-                  "Performance benchmarking",
-                  "Edge case identification",
-                  "Failure mode analysis",
-                ],
-              },
-              {
-                phase: "03",
-                title: "Metrics Development",
-                description:
-                  "Custom KPIs aligned with business objectives and technical requirements",
-                details: [
-                  "Business-aligned KPIs",
-                  "Technical metrics",
-                  "ROI measurement framework",
-                ],
-              },
-              {
-                phase: "04",
-                title: "Enhancement",
-                description:
-                  "Systematic optimization using data-driven insights and proven methodologies",
-                details: [
-                  "Model optimization",
-                  "Architecture improvements",
-                  "Performance tuning",
-                ],
-              },
-              {
-                phase: "05",
-                title: "Continuous Monitoring",
-                description:
-                  "Real-time tracking with automated alerting and performance drift detection",
-                details: [
-                  "24/7 monitoring",
-                  "Automated alerts",
-                  "Drift detection",
-                ],
-              },
-            ].map((step, index) => (
+            {PROCESS_STEPS.map((step, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
@@ -525,12 +473,7 @@ function App() {
                     unpredictable, and customer trust was eroding.
                   </p>
                   <ul className="space-y-2">
-                    {[
-                      "67.3% accuracy in lead scoring",
-                      "2.4s average response time",
-                      "$2.3M annual revenue impact",
-                      "Customer churn increasing 23%",
-                    ].map((item, index) => (
+                    {CASE_STUDY_CHALLENGE_ITEMS.map((item, index) => (
                       <li
                         key={index}
                         className="flex items-center text-slate-600"
@@ -552,12 +495,7 @@ function App() {
                     improvements.
                   </p>
                   <ul className="space-y-2">
-                    {[
-                      "95.5% validated lead scoring accuracy",
-                      "540ms consistent response time",
-                      "$1.2M annual cost savings",
-                      "99.7% uptime with monitoring",
-                    ].map((item, index) => (
+                    {CASE_STUDY_SOLUTION_ITEMS.map((item, index) => (
                       <li
                         key={index}
                         className="flex items-center text-slate-600"
@@ -910,22 +848,53 @@ function App() {
           </div>
 
           <div className="border-t border-slate-800 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-slate-400">
                 © 2025 TrustForge AI. All rights reserved.
               </p>
-              <p className="text-slate-400">Powered by <a style={{ color: 'white' }} target="_blank" rel="noopener noreferrer" href="https://tesvan.com" className="text-slate-400 hover:text-white transition-colors">Tesvan</a>
-              </p>
-              {/* <div className="flex space-x-6 mt-4 md:mt-0">
-                <a href="#" className="text-slate-400 hover:text-white transition-colors">Privacy Policy</a>
-                <a href="#" className="text-slate-400 hover:text-white transition-colors">Terms of Service</a>
-                <a href="#" className="text-slate-400 hover:text-white transition-colors">Security</a>
-              </div> */}
+              <div className="flex flex-wrap justify-center gap-6">
+                <Link
+                  to="/privacy_policy"
+                  className="text-white hover:underline transition-colors"
+                >
+                  Terms of Use & Privacy Policy
+                </Link>
+                <p className="text-slate-400">
+                  Powered by{" "}
+                  <a
+                    href="https://tesvan.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white hover:underline"
+                  >
+                    Tesvan
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </footer>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex items-center justify-center bg-slate-50">
+            <div className="animate-pulse text-slate-400">Loading…</div>
+          </div>
+        }
+      >
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 
